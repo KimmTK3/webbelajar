@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tutorial HTML: Buat & Jawab 6 Nomor Rekap Nilai (untuk Mahasiswa Semester 1)</title>
+  <style>
+    body{font-family:Inter, system-ui, -apple-system, Roboto, 'Segoe UI', Arial;line-height:1.5;margin:0;background:#f7fafc;color:#0f172a}
+    header{background:#2563eb;color:white;padding:24px 18px}
+    .container{max-width:980px;margin:20px auto;padding:18px}
+    h1{margin:0 0 6px;font-size:22px}
+    .card{background:white;border-radius:10px;padding:14px;box-shadow:0 6px 18px rgba(2,6,23,0.06);margin-bottom:14px}
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    th,td{padding:6px;border:1px solid #e6eef8;text-align:left;font-size:13px}
+    th{background:#f1f5f9}
+    .muted{color:#475569;font-size:14px}
+    pre{background:#0b1220;color:#dbeafe;padding:10px;border-radius:8px;overflow:auto;font-size:13px}
+    .flex{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;color:white;background:#2563eb}
+    input[type=number]{width:80px}
+    .small{font-size:13px;color:#334155}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Panduan Sederhana & Interaktif: Membuat Rekap Nilai dan Menjawab 6 Nomor</h1>
+      <div class="small">Untuk mahasiswa semester 1 yang baru belajar Excel — tapi disajikan dalam halaman HTML interaktif agar mudah dipraktikkan.</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Apa saja yang harus dijawab (6 nomor dari soal)</h2>
+      <ol>
+        <li>Nama mahasiswa diisi sesuai instruksi (nama teman sekelas atau NIM).</li>
+        <li>Menentukan bobot nilai: UTS 30%, UAS 50%, Tugas 20%.</li>
+        <li>Persentase kehadiran dihitung berdasarkan total 14 pertemuan.</li>
+        <li>Menentukan skala nilai mutu (A–E) sesuai rentang angka.</li>
+        <li>Syarat kelulusan: nilai &gt; 50.01 dan kehadiran &gt; 80%.</li>
+        <li>Hitung berapa banyak mahasiswa yang Lulus dan Tidak Lulus.</li>
+      </ol>
+      <p class="muted">Hal berikut menunjukkan langkah-langkah sederhana untuk menjawab tiap nomor, lalu ada tabel interaktif agar kamu bisa coba langsung.</p>
+    </section>
+
+    <section class="card">
+      <h2>Step-by-step (bahasa sederhana, tiap nomor)</h2>
+      <h3>Nomor 1 — Nama Mahasiswa</h3>
+      <p class="small">Buka kolom <code>Nama</code> dan <code>NIM</code> di Excel (atau di tabel berikut). Isi sesuai data teman sekelasmu — nama lengkap di kolom Nama dan nomor NIM di kolom NIM.</p>
+
+      <h3>Nomor 2 — Bobot nilai</h3>
+      <p class="small">Ingat: <strong>UTS = 30%</strong>, <strong>UAS = 50%</strong>, <strong>Tugas = 20%</strong>. Jadi saat menghitung total nilai, jangan lupa kalikan masing-masing nilai dengan bobotnya.</p>
+
+      <h3>Nomor 3 — Persentase kehadiran</h3>
+      <p class="small">Jika jumlah pertemuan total = 14, dan mahasiswa hadir misalnya 12 kali, rumusnya: <code>12 / 14 * 100</code> = 85.71%.</p>
+
+      <h3>Nomor 4 — Skala nilai mutu</h3>
+      <p class="small">Ubah nilai angka menjadi huruf berdasarkan aturan:</p>
+      <ul>
+        <li>A = 80.01 - 100</li>
+        <li>B = 65.01 - 80</li>
+        <li>C = 50.01 - 65</li>
+        <li>D = 40.01 - 50</li>
+        <li>E = 0 - 40</li>
+      </ul>
+
+      <h3>Nomor 5 — Syarat Lulus</h3>
+      <p class="small">Mahasiswa lulus bila: <strong>nilai > 50.01</strong> <em>dan</em> <strong>persentase kehadiran > 80%</strong>. Jika salah satu tidak dipenuhi, maka tidak lulus.</p>
+
+      <h3>Nomor 6 — Hitung berapa yang Lulus/Tidak</h3>
+      <p class="small">Setelah semua baris dihitung, tinggal hitung jumlah baris yang bertuliskan "Lulus" dan jumlah yang bertuliskan "Tidak Lulus". Di Excel bisa pakai fungsi <code>COUNTIF</code>, di JavaScript cukup loop dan hitung.</p>
+    </section>
+
+    <section class="card">
+      <h2>Tabel Interaktif (Coba langsung di browser)</h2>
+      <p class="small">Isi nilai pada tabel ini, lalu tekan <strong>Hitung</strong>. Halaman akan otomatis menghitung %hadir, total nilai, nilai huruf, keterangan, dan jumlah Lulus/Tidak Lulus.</p>
+
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th>No</th><th>Nama</th><th>NIM</th><th>Kehadiran (0-14)</th><th>UTS</th><th>UAS</th><th>Tugas</th><th>% Hadir</th><th>Total</th><th>Huruf</th><th>Keterangan</th>
+          </tr>
+        </thead>
+        <tbody id="body">
+          <!-- default rows -->
+        </tbody>
+      </table>
+      <div style="margin-top:8px" class="flex">
+        <button class="btn" id="addRow">Tambah Baris</button>
+        <button class="btn" id="hitung">Hitung</button>
+        <a class="btn" id="downloadCsv">Download CSV</a>
+      </div>
+
+      <div style="margin-top:10px" class="card small">
+        <strong>Hasil ringkasan:</strong>
+        <div id="ringkasan">Belum dihitung.</div>
+      </div>
+
+      <script>
+        // Buat 5 baris contoh
+        const body = document.getElementById('body');
+        function createRow(i, data){
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${i}</td>
+            <td><input type='text' value='${data?.name||""}'></td>
+            <td><input type='text' value='${data?.nim||""}'></td>
+            <td><input type='number' min='0' max='14' value='${data?.kehadiran||14}'></td>
+            <td><input type='number' min='0' max='100' value='${data?.uts||75}'></td>
+            <td><input type='number' min='0' max='100' value='${data?.uas||80}'></td>
+            <td><input type='number' min='0' max='100' value='${data?.tugas||85}'></td>
+            <td class='percent'></td>
+            <td class='total'></td>
+            <td class='huruf'></td>
+            <td class='ket'></td>
+          `;
+          body.appendChild(tr);
+        }
+        for(let i=1;i<=5;i++) createRow(i);
+
+        document.getElementById('addRow').addEventListener('click', ()=>{
+          createRow(body.children.length+1);
+        });
+
+        function calcAll(){
+          const rows = body.querySelectorAll('tr');
+          let lulus=0, tidak=0;
+          rows.forEach(r=>{
+            const inputs = r.querySelectorAll('input');
+            const kehadiran = Number(inputs[2].value);
+            const uts = Number(inputs[3].value);
+            const uas = Number(inputs[4].value);
+            const tugas = Number(inputs[5].value);
+
+            // 1) % Kehadiran
+            const pct = (kehadiran / 14) * 100;
+            r.querySelector('.percent').textContent = pct.toFixed(2) + '%';
+
+            // 2) Total nilai berdasarkan bobot
+            const total = uts*0.30 + uas*0.50 + tugas*0.20;
+            r.querySelector('.total').textContent = total.toFixed(2);
+
+            // 3) Nilai huruf
+            let huruf = 'E';
+            if(total >= 80.01) huruf='A';
+            else if(total >= 65.01) huruf='B';
+            else if(total >= 50.01) huruf='C';
+            else if(total >= 40.01) huruf='D';
+            r.querySelector('.huruf').textContent = huruf;
+
+            // 4) Keterangan lulus / tidak
+            const ket = (total>50.01 && pct>80) ? 'Lulus' : 'Tidak Lulus';
+            r.querySelector('.ket').textContent = ket;
+
+            if(ket==='Lulus') lulus++; else tidak++;
+          });
+
+          document.getElementById('ringkasan').innerHTML = `Jumlah baris: ${rows.length} — <strong>Lulus: ${lulus}</strong>, <strong>Tidak Lulus: ${tidak}</strong>`;
+        }
+
+        document.getElementById('hitung').addEventListener('click', calcAll);
+
+        // Download CSV
+        document.getElementById('downloadCsv').addEventListener('click', ()=>{
+          const rows = body.querySelectorAll('tr');
+          const lines = [];
+          lines.push(['No','Nama','NIM','Kehadiran','UTS','UAS','Tugas','%Hadir','Total','Huruf','Keterangan'].join(','));
+          rows.forEach(r=>{
+            const cells = r.querySelectorAll('td');
+            const inputs = r.querySelectorAll('input');
+            const no = cells[0].textContent;
+            const nama = inputs[0].value;
+            const nim = inputs[1].value;
+            const kehadiran = inputs[2].value;
+            const uts = inputs[3].value;
+            const uas = inputs[4].value;
+            const tugas = inputs[5].value;
+            const ph = cells[7].textContent;
+            const total = cells[8].textContent;
+            const huruf = cells[9].textContent;
+            const ket = cells[10].textContent;
+            lines.push([no,`"${nama}"`,nim,kehadiran,uts,uas,tugas,ph,total,huruf,ket].join(','));
+          });
+          const blob = new Blob([lines.join('\n')], {type:'text/csv'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a'); a.href=url; a.download='rekap_nilai.csv'; a.click(); URL.revokeObjectURL(url);
+        });
+
+      </script>
+    </section>
+
+    <section class="card">
+      <h2>Penjelasan singkat terkait rumus Excel (satu per satu)</h2>
+      <ol>
+        <li><strong>% Kehadiran</strong>: <code>=G2/14*100</code><br>G2 = sel yang berisi jumlah hadir; dibagi 14 (total pertemuan) lalu dikali 100 agar jadi persen.</li>
+        <li><strong>Total Nilai</strong>: <code>=H2*0.30 + I2*0.50 + J2*0.20</code><br>H2=UTS, I2=UAS, J2=Tugas. Kalikan tiap nilai dengan bobotnya lalu jumlahkan.</li>
+        <li><strong>Nilai Huruf</strong>: <code>=IF(L2>=80.01,"A",IF(L2>=65.01,"B",IF(L2>=50.01,"C",IF(L2>=40.01,"D","E"))))</code><br>Ini menggunakan nested IF untuk memilih huruf berdasarkan rentang nilai.</li>
+        <li><strong>Keterangan (Lulus/Tidak)</strong>: <code>=IF(AND(L2>50.01,K2>80),"Lulus","Tidak Lulus")</code><br>Fungsi AND memastikan kedua syarat terpenuhi: nilai >50.01 dan %hadir >80.</li>
+        <li><strong>Menjumlah Lulus di Excel</strong>: setelah kolom N terisi, gunakan <code>=COUNTIF(N2:N100,"Lulus")</code> untuk hitung jumlah lulus, dan <code>=COUNTIF(N2:N100,"Tidak Lulus")</code> untuk yang tidak lulus.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Cara menjawab 6 nomor itu — ringkas</h2>
+      <ol>
+        <li>Nomor 1: Isi nama & NIM di kolomnya.</li>
+        <li>Nomor 2: Pastikan kamu pakai bobot yang benar saat membuat rumus total nilai.</li>
+        <li>Nomor 3: Hitung % kehadiran dengan membagi jumlah hadir / 14 × 100.</li>
+        <li>Nomor 4: Gunakan nested IF untuk mengubah angka jadi huruf sesuai rentang.</li>
+        <li>Nomor 5: Terapkan IF + AND untuk menilai lulus atau tidak.</li>
+        <li>Nomor 6: Gunakan COUNTIF untuk menghitung berapa Lulus dan Tidak Lulus, atau di halaman ini tekan Hitung lalu lihat ringkasan.</li>
+      </ol>
+    </section>
+
+    <footer class="card small">
+      Jika ingin file .xlsx siap pakai, katakan saja — saya bisa buatkan dan sediakan unduhannya.
+    </footer>
+  </main>
+</body>
+</html>
